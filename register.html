@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustMatrix Register</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: rgba(236, 240, 241, 0.8);
+            --text-color: #34495e;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        #video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1000;
+            background-size: cover;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .register-container {
+            background: var(--background-color);
+            padding: 20px; /* Reduced padding */
+            border-radius: 8px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px; /* Kept width the same */
+            text-align: center;
+            animation: slideIn 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+            font-size: 14px; /* Set base font size smaller */
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .brand {
+            font-size: 24px; /* Reduced from 32px */
+            margin-bottom: 15px;
+        }
+        h2 {
+            font-size: 20px; /* Reduced from 24px */
+            margin-bottom: 20px; /* Reduced margin */
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .register-container:hover h2::after {
+            width: 100px;
+        }
+        .input-group {
+            margin-bottom: 15px; /* Reduced space between inputs */
+            text-align: left;
+        }
+        label, input, select, button, .message {
+            font-size: 12px; /* Reduced font size for labels, inputs, and messages */
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        input, select {
+            width: 100%;
+            padding: 8px; /* Reduced padding for inputs */
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        button, input[type="button"] {
+            width: 100%;
+            padding: 10px; /* Reduced padding for buttons */
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover, input[type="button"]:hover {
+            background-color: #2980b9;
+        }
+        a {
+            display: block;
+            margin: 15px 0;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 12px; /* Reduced font size for links */
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--accent-color);
+        }
+        .message {
+            font-size: 12px; /* Reduced font size */
+            color: var(--text-color);
+            margin-bottom: 15px;
+            background-color: rgba(233, 236, 239, 0.7);
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <video autoplay muted loop id="video-background">
+        <source src="videos/video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay">
+        <div class="register-container">
+            <div class="brand">CustMatrix</div>
+            <h2>Register</h2>
+            <div class="message">Welcome to our registration form! Please follow the instructions below to fill out your information accurately. All fields are required and mandatory.</div>
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="Full Name" required />
+                </div>
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Username" required />
+                </div>
+                <div class="input-group">
+                    <label for="SQ">Security Question:</label>
+                    <select name="options" id="SQ" required>
+                        <option value="option1">In what city were you born?</option>
+                        <option value="option2">What high school did you attend?</option>
+                        <option value="option3">What was your favorite food as a child?</option>
+                        <option value="option4">What was your Recently used password?</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="SQA" placeholder="Security Answer" required />
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required />
+                </div>
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+                </div>
+                <input type="button" value="Generate Password" onClick="generatePass()">
+                <button type="submit">Register</button>
+            </form>
+            <a href="login.html">Go to Login</a>
+        </div>
+    </div>
+
+    <script>
+        function generatePass() {
+            const capitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const smallLetters = "abcdefghijklmnopqrstuvwxyz";
+            const numbers = "0123456789";
+            const symbols = "!@#$%&";
+            let password = "";
+            for (let i = 0; i < 2; i++) {
+                password += capitalLetters[Math.floor(Math.random() * capitalLetters.length)];
+                password += smallLetters[Math.floor(Math.random() * smallLetters.length)];
+                password += numbers[Math.floor(Math.random() * numbers.length)];
+                password += symbols[Math.floor(Math.random() * symbols.length)];
+            }
+            password = password.split('').sort(() => Math.random() - 0.5).join('');
+            document.getElementById("password").value = password;
+            document.getElementById("confirmPassword").value = password;
+            alert("Generated Password is " + password);
+        }
+
+        document.getElementById("registerForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const username = document.getElementById("username").value.trim();
+            const SQ = document.getElementById("SQ").value;
+            const SQA = document.getElementById("SQA").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            const hashedPassword = CryptoJS.SHA256(password).toString();
+            const hashedSQA = CryptoJS.SHA256(SQA).toString();             
+ 
+            const user = {
+                name: name,
+                username: username,
+                password: hashedPassword,
+                SQ: SQ,
+                SQA: hashedSQA,
+            };
+
+            localStorage.setItem(username, JSON.stringify(user));
+            alert("Registration successful! Please login.");
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>

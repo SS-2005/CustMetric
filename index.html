@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustMetric - Customer Analytics Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7f9;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        .nav-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #ecf0f1;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+        .section {
+            padding: 5rem 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+        .features {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .feature {
+            flex-basis: calc(33.333% - 2rem);
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .feature img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .case-study {
+            background-color: #fff;
+            padding: 3rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+        .case-study h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .case-study-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .case-study-text {
+            flex-basis: 60%;
+        }
+        .case-study-image {
+            flex-basis: 35%;
+        }
+        .case-study-image img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 3rem;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #3498db;
+        }
+        .report-content {
+           background-color: #fff;
+           padding: 2rem;
+           border-radius: 5px;
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-features {
+           display: flex;
+           justify-content: space-between;
+           margin-top: 2rem;
+           margin-bottom: 2rem;
+        }
+
+        .report-feature {
+          flex-basis: 30%;
+          text-align: center;
+          padding: 1rem;
+          background-color: #f4f7f9;
+          border-radius: 5px;
+          transition: transform 0.3s ease;
+       }
+
+       .report-feature:hover {
+          transform: translateY(-5px);
+       }
+
+       .report-feature i {
+         font-size: 2rem;
+         color: #3498db;
+         margin-bottom: 1rem;
+       }
+
+       .report-feature h3 {
+         margin-bottom: 0.5rem;
+         color: #2c3e50;
+       }
+
+       .report-btn {
+          display: block;
+          width: 200px;
+          margin: 0 auto;
+          text-align: center;  
+       }
+
+        .team {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .team-member {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: none;
+        }
+        .scroll-to-top:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">CustMetric</div>
+            <ul class="nav-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#case-study">Case Study</a></li>
+              <li><a href="#reports">Reports</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <h1>Unlock the Power of Customer Analytics</h1>
+                <p>CustMetric helps businesses grow by providing actionable insights from customer data.</p>
+                <a href="#features" class="btn">Discover Our Features</a>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About CustMetric</h2>
+                <p>CustMetric is a cutting-edge customer analytics platform designed to help businesses understand, retain, and grow their customer base. By leveraging advanced data analytics and machine learning algorithms, we provide actionable insights that drive business growth and customer satisfaction.</p>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Features</h2>
+                <div class="features">
+                    <div class="feature">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" alt="Churn Prediction">
+                        <h3>Churn Prediction</h3>
+                        <p>Identify at-risk customers before they leave, allowing you to take proactive measures to retain them.</p>
+                    </div>
+                    <div class="feature">
+                        <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" alt="Customer Segmentation">
+                        <h3>Customer Segmentation</h3>
+                        <p>Divide your customer base into distinct groups, enabling targeted marketing and personalized experiences.</p>
+                    </div>
+                    <div class="feature">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" alt="Lifetime Value Analysis">
+                        <h3>Lifetime Value Analysis</h3>
+                        <p>Calculate and predict the long-term value of your customers to optimize resource allocation and marketing strategies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="case-study" class="section">
+            <div class="container">
+                <h2 class="section-title">Case Study</h2>
+                <div class="case-study">
+                    <h3>How TechCorp Reduced Churn by 35%</h3>
+                    <div class="case-study-content">
+                        <div class="case-study-text">
+                            <p>TechCorp, a leading SaaS provider, was struggling with high customer churn rates. By implementing CustMetric's analytics solution, they were able to:</p>
+                            <ul>
+                                <li>Identify key factors contributing to churn</li>
+                                <li>Segment customers based on behavior and preferences</li>
+                                <li>Implement targeted retention strategies</li>
+                            </ul>
+                            <p>As a result, TechCorp saw a 35% reduction in churn rate within 6 months, leading to a significant increase in revenue and customer satisfaction.</p>
+                        </div>
+                        <div class="case-study-image">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" alt="TechCorp Case Study">
+                        </div>
+                    </div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">35%</div>
+                            <div class="stat-label">Churn Reduction</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">20%</div>
+                            <div class="stat-label">Revenue Increase</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Customer Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Team</h2>
+                <div class="team">
+                    <div class="team-member">
+                        <h3>Amaan Kherani</h3>
+                        
+                    </div>
+                    <div class="team-member">
+                        <h3>Sahil Shaikh</h3>
+                        
+                    </div>
+                    <div class="team-member">
+                        <h3>Pranav Tembhare</h3>
+                        
+                    </div>
+                    <div class="team-member">
+                        <h3>Shivam Tiwari</h3>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+        <section id="reports" class="section">
+            <div class="container">
+                <h2 class="section-title">Reports</h2>
+                <div class="report-content">
+                    <p>Access our detailed analytics reports to gain insights into customer behavior, churn predictions, and more. Our interactive dashboards provide real-time data visualization and analysis tools to help you make informed decisions.</p>
+                    <div class="report-features">
+                       <div class="report-feature">
+                         <i class="fas fa-chart-line"></i>
+                         <h3>Trend Analysis</h3>
+                         <p>Visualize customer behavior trends over time.</p>
+                       </div>
+                      <div class="report-feature">
+                         <i class="fas fa-users"></i>
+                         <h3>Segmentation Insights</h3>
+                         <p>Understand your customer segments in depth.</p>
+                      </div>
+                      <div class="report-feature">
+                         <i class="fas fa-bullseye"></i>
+                         <h3>Churn Predictions</h3>
+                         <p>Identify customers at risk of churning.</p>
+                      </div>
+                    </div>
+                    <a href="http://127.0.0.1:5000" target="_blank" class="btn report-btn">Access Reports</a>
+                </div>
+            </div>
+        </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2023 CustMetric. All rights reserved.</p>
+            <p>Contact us: info@custmetric.com</p>
+        </div>
+    </footer>
+
+    <div class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll to top button
+        const scrollToTopButton = document.querySelector('.scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopButton.style.display = 'block';
+            } else {
+                scrollToTopButton.style.display = 'none';
+            }
+        });
+
+        scrollToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Animate elements on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature, .case-study, .team-member');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check on page load
+
+        // Animate stats counter
+        const animateStats = () => {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let count = 0;
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60 fps
+
+                const updateCount = () => {
+                    if (count < target) {
+                        count += increment;
+                        stat.textContent = Math.round(count) + '%';
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        stat.textContent = target + '%';
+                    }
+                };
+
+                updateCount();
+            });
+        };
+
+        // Trigger stats animation when the case study section is in view
+        const caseStudySection = document.querySelector('#case-study');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(caseStudySection);
+    </script>
+</body>
+</html>
